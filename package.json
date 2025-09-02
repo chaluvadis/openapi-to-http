@@ -1,6 +1,6 @@
 {
   "name": "openapi-to-http",
-  "displayName": "openapi-to-http",
+  "displayName": "OpenAPI to HTTP",
   "description": "Extension to transform swagger/openapi yml to .http files",
   "version": "0.0.1",
   "icon": "icon.png",
@@ -9,6 +9,15 @@
   },
   "categories": [
     "Other"
+  ],
+  "keywords": [
+    "OpenAPI",
+    "Swagger",
+    "http",
+    "rest",
+    "api",
+    "converter",
+    "tags:openapi"
   ],
   "activationEvents": [
     "onLanguage:yml",
