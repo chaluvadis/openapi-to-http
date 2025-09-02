@@ -166,36 +166,53 @@ function resolveRefV3(schemas: any, ref: string): any {
 }
 
 // --- Generate sample values from JSON Schema (with $ref resolution) ---
-function sampleFromSchema(schema: any, dict: any, seenRefs = new Set<string>()): any {
-	if (!schema) return {};
-	if (schema.$ref) {
-		if (seenRefs.has(schema.$ref)) return {};
-		seenRefs.add(schema.$ref);
-		const resolved =
-			schema.$ref.startsWith('#/components/schemas/')
-				? resolveRefV3(dict, schema.$ref)
-				: resolveRefV2(dict, schema.$ref);
-		return sampleFromSchema(resolved, dict, seenRefs);
+function sampleFromSchema(schema: any, definitionsOrSchemas: any, seenRefs = new Set<string>()): any {
+	if (!schema) {
+		return {};
 	}
-	if ('example' in schema) return schema.example;
-	if ('default' in schema) return schema.default;
+	if (schema.$ref && typeof schema.$ref === "string") {
+		if (seenRefs.has(schema.$ref)) {
+			return {};
+		}
+		seenRefs.add(schema.$ref);
+		let resolved;
+		// Try v3 first, fallback to v2
+		if (schema.$ref.startsWith('#/components/schemas/')) {
+			resolved = resolveRefV3(definitionsOrSchemas, schema.$ref);
+		} else {
+			resolved = resolveRefV2(definitionsOrSchemas, schema.$ref);
+		}
+		return sampleFromSchema(resolved, definitionsOrSchemas, seenRefs);
+	}
+	if (schema.example !== undefined) {
+		return schema.example;
+	}
+	if (schema.default !== undefined) {
+		return schema.default;
+	}
 	if (schema.type === 'object' && schema.properties) {
 		const obj: any = {};
 		for (const [k, v] of Object.entries(schema.properties)) {
-			obj[k] = sampleFromSchema(v, dict, seenRefs);
+			obj[k] = sampleFromSchema(v as any, definitionsOrSchemas, seenRefs);
 		}
 		return obj;
 	}
 	if (schema.type === 'array' && schema.items) {
-		return [sampleFromSchema(schema.items, dict, seenRefs)];
+		return [sampleFromSchema(schema.items as any, definitionsOrSchemas, seenRefs)];
 	}
-	if (Array.isArray(schema.enum)) return schema.enum[0];
-	switch (schema.type) {
-		case 'string': return "";
-		case 'integer': case 'number': return 0;
-		case 'boolean': return false;
-		default: return {};
+	if (Array.isArray(schema.enum)) {
+		return schema.enum[0];
 	}
+	if (schema.type === 'string') {
+		return "";
+	}
+	if (schema.type === 'integer' || schema.type === 'number') {
+		return 0;
+	}
+	if (schema.type === 'boolean') {
+		return false;
+	}
+	return {};
 }
 
 export function deactivate() {}
