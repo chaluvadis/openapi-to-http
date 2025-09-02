@@ -31,7 +31,7 @@ jobs:
       run: npm run compile
 
     - name: Package extension
-      run: npx vsce package
+      run: npx vsce package --out openapi-to-http-${TAG_NAME}.vsix
 
     - name: Get version from tag
       id: get_version
