@@ -1,4 +1,4 @@
-# OpenAPI/Swagger to HTTP File Converter VSCode Extension
+# OpenAPI/Swagger to HTTP File Converter
 
 ## Overview
 
