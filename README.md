@@ -1,4 +1,4 @@
-# OpenAPI/Swagger to HTTP File Converter
+# OpenAPI/Swagger to HTTP File Converter <img src="./icon.png" height="32px" width="32px">
 
 ## Overview
 
@@ -60,6 +60,12 @@ GET http://localhost/api/v2.0/projects
 - Make sure your API spec is valid YAML or JSON.
 - The `.http` file is generated alongside your spec file.
 - Use the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension in VSCode to run requests directly.
+
+## Icon
+
+<p>
+  <img src="./icon.png" height="64px" width="64px">
+</p>
 
 ## Contributing
 
