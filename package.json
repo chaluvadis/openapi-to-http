@@ -1,14 +1,14 @@
 {
   "name": "openapi-to-http",
   "displayName": "OpenAPI to HTTP",
-  "description": "Extension to transform swagger/openapi yml to .http files",
-  "version": "0.0.1",
-  "icon": "icon.png",
+  "description": "Convert OpenAPI/Swagger specs to HTTP request collections for VSCode REST Client.",
+  "version": "0.0.2",
   "engines": {
-    "vscode": "^1.103.0"
+    "vscode": "^1.80.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Formatters"
   ],
   "keywords": [
     "OpenAPI",
@@ -16,59 +16,51 @@
     "http",
     "rest",
     "api",
-    "converter",
-    "tags:openapi"
+    "converter"
   ],
-  "activationEvents": [
-    "onLanguage:yml",
-    "onLanguage:yaml",
-    "onLanguage:json"
-  ],
-  "main": "./dist/extension.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chaluvadis/openapi-to-http"
+  },
+  "homepage": "https://github.com/chaluvadis/openapi-to-http",
+  "bugs": {
+    "url": "https://github.com/chaluvadis/openapi-to-http/issues"
+  },
+  "icon": "icon.png",
   "contributes": {
     "commands": [
       {
         "command": "openapiToHttp.transform",
-        "title": "Transform Swagger/OpenAPI to HTTP"
+        "title": "OpenAPI to HTTP: Transform"
       }
     ],
     "menus": {
-      "explorer/context": [
-        {
-          "command": "openapiToHttp.transform",
-          "when": "resourceExtname == .json || resourceExtname == .yaml || resourceExtname == .yml",
-          "group": "navigation"
-        }
-      ],
       "editor/context": [
         {
           "command": "openapiToHttp.transform",
-          "when": "resourceExtname == .json || resourceExtname == .yaml || resourceExtname == .yml",
+          "when": "resourceLangId == yaml || resourceLangId == json",
           "group": "navigation"
         }
       ]
     }
   },
+  "activationEvents": [],
+  "main": "./dist/extension.js",
   "scripts": {
-    "compile": "npm run check-types && npm run lint && node esbuild.js",
-    "check-types": "tsc --noEmit",
-    "lint": "eslint src"
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package --out openapi-to-http-$(node -p \"require('./package.json').version\").vsix"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.4.0",
+    "vsce": "^3.0.0",
+    "js-yaml": "^4.1.0"
   },
   "dependencies": {
     "js-yaml": "^4.1.0"
-  },
-  "devDependencies": {
-    "@types/js-yaml": "^4.0.9",
-    "@types/mocha": "^10.0.10",
-    "@types/node": "22.x",
-    "@types/vscode": "^1.103.0",
-    "@typescript-eslint/eslint-plugin": "^8.39.0",
-    "@typescript-eslint/parser": "^8.39.0",
-    "@vscode/test-cli": "^0.0.11",
-    "@vscode/test-electron": "^2.5.2",
-    "esbuild": "^0.25.9",
-    "eslint": "^9.34.0",
-    "npm-run-all": "^4.1.5",
-    "typescript": "^5.9.2"
   }
 }
