@@ -4,7 +4,7 @@
   "description": "Convert OpenAPI/Swagger specs to HTTP request collections for VSCode REST Client.",
   "version": "0.0.2",
   "engines": {
-    "vscode": "^1.80.0"
+    "vscode": "^1.103.0"
   },
   "categories": [
     "Other",
