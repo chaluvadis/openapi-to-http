@@ -54,10 +54,10 @@
     "package": "vsce package --out openapi-to-http-$(node -p \"require('./package.json').version\").vsix"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
-    "@types/vscode": "^1.80.0",
-    "typescript": "^5.4.0",
-    "vsce": "^3.0.0",
+    "@types/node": "^22.18.1",
+    "@types/vscode": "^1.103.0",
+    "typescript": "^5.9.2",
+    "vsce": "^2.15.0",
     "js-yaml": "^4.1.0"
   },
   "dependencies": {
