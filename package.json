@@ -2,7 +2,7 @@
   "name": "openapi-to-http",
   "displayName": "OpenAPI to HTTP",
   "description": "Convert OpenAPI/Swagger specs to HTTP request collections for VSCode REST Client.",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "engines": {
     "vscode": "^1.103.0"
   },
@@ -29,6 +29,18 @@
   },
   "icon": "icon.png",
   "contributes": {
+    "languages": [
+      {
+        "id": "yaml",
+        "aliases": ["yaml"],
+        "extensions": [".yaml"]
+      },
+      {
+        "id": "json",
+        "aliases": ["json"],
+        "extensions": [".json"]
+      }
+    ],
     "commands": [
       {
         "command": "openapiToHttp.transform",
