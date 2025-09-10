@@ -50,22 +50,56 @@ GET http://localhost/api/v2.0/projects
 - **OpenAPI v3:**  
   - Handles `components.schemas`.
   - Detects `requestBody` and resolves nested `$ref`.
-- **Request separation:**  
-  - Each request is separated by `###` for REST Client compatibility.
 - **Modern icon:**  
   - Vibrant gradient background for a fresh look.
+
+## File Filtering
+
+To prevent the extension from processing non-OpenAPI files, it ignores specific filenames and keywords. This ensures it only targets actual specification files.
+
+### Ignored Filenames
+The following files are explicitly ignored:
+- package.json
+- tsconfig.json
+- jsconfig.json
+- settings.json
+- launch.json
+- tasks.json
+- global.json
+- appsettings.json
+- config.json
+- webpack.config.js
+- webpack.config.json
+- vite.config.js
+- vite.config.json
+- babel.config.js
+- babel.config.json
+- eslint.json
+- eslint.yaml
+- eslint.yml
+- prettier.json
+- prettier.yaml
+- prettier.yml
+- docker-compose.yml
+- docker-compose.yaml
+
+### Ignored Keywords
+Files containing any of these keywords in their names are also ignored:
+- config
+- setting
+- package
+- tsconfig
+- jsconfig
+- appsettings
+- docker-compose
+
+This filtering helps avoid errors when running the command on configuration or unrelated files. Only `.yaml`, `.yml`, or `.json` files that appear to be OpenAPI specs will be processed.
 
 ## Usage Tips
 
 - Make sure your API spec is valid YAML or JSON.
 - The `.http` file is generated alongside your spec file.
 - Use the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension in VSCode to run requests directly.
-
-## Icon
-
-<p>
-  <img src="./icon.png" height="64px" width="64px">
-</p>
 
 ## Contributing
 
