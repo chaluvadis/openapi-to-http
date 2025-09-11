@@ -29,9 +29,19 @@ jobs:
 
     - name: Compile extension
       run: npm run compile
-
+    
     - name: Package extension
-      run: npx vsce package --out openapi-to-http-${TAG_NAME}.vsix
+      run: |
+        # Use the tag name as part of the VSIX filename when available.
+        TAG="${{ github.ref_name }}"
+        if [ -z "$TAG" ]; then
+          TAG="$(echo "${GITHUB_SHA}" | cut -c1-7)"
+        fi
+        OUT="openapi-to-http-${TAG}.vsix"
+        echo "OUT=${OUT}" >> $GITHUB_ENV
+        echo "Packaging VSIX -> ${OUT}"
+        npx vsce package --out "${OUT}"
+      shell: bash
 
     - name: Get version from tag
       id: get_version
